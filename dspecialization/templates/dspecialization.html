@@ -1,0 +1,86 @@
+{% extends 'base.html' %} {% block content %}
+<script>
+	jQuery(function () {
+		jQuery("#appointment_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "0:+1",
+			dateFormat: 'd MM,yy'
+		});
+	});
+</script>
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-sm-4">
+				<h1>{{heading}}</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<!--breadcrumbs end-->
+
+<!--container start-->
+<div class="registration-bg">
+	<div class="row">
+		<form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:60%">
+			{% csrf_token %}
+			<h2 class="form-signin-heading">
+				{% if fn == "add" %}
+					Associate Specialization to Doctor
+				{% elif fn == "update" %}
+					Update Association
+				{% endif %}
+			</h2>
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="login-wrap">	
+				<div class="form-group">
+					<label for="pwd">Select Doctor ID</label>
+					<select name="dspecialization_doctor_id" required class="form-control" placeholder="Select Month" autofocus="" /> 
+					<option value="">Please Select</option>
+					{% for doctor in doctorlist %}
+					<option value="{{ doctor.user_id }}" {% ifequal doctor.user_id dspecializationDetails.dspecialization_doctor_id %} selected="selected"{% endifequal %}>{{doctor.user_id}}</option>
+					{% endfor %}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="pwd">Select Specialization</label>
+					<select name="dspecialization_specialization_id" required class="form-control" placeholder="Select Month" autofocus="" /> 
+					<option value="">Please Select</option>
+					{% for specialization in specializationlist %}
+					<option value="{{ specialization.specialization_id }}" {% ifequal specialization.specialization_id dspecializationDetails.dspecialization_specialization_id %} selected="selected"{% endifequal %}>{{specialization.specialization_title}}</option>
+					{% endfor %}
+					</select>
+				</div>
+
+				<div class="form-group" style="clear:both">
+					<label for="pwd">Descriptions </label>
+					<textarea class="form-control" style="height:150px;" placeholder="Description" autofocus="" name="dspecialization_description" id="dspecialization_description" required>{{dspecializationDetails.dspecialization_description}}</textarea>
+				</div>
+				<button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+			</div>
+			<input type="hidden" name="act" value="save_dspecialization">
+			<input type="hidden" name="user_id" value="{{dspecializationlist.dspecialization_id}}">
+		</form>
+	</div>
+</div>
+{% if appointmentdetails %}
+<script>
+	$(".update-appointment").hide();
+</script>
+{% endif %}
+{% if request.session.appointment_level_id != 1 %}
+<script>
+	$(".role-options").hide();
+</script>
+{% endif %}
+<!--container end-->
+{% endblock content %}

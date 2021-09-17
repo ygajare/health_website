@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {% block content %}
+<script>
+	jQuery(function () {
+		jQuery("#appointment_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "0:+1",
+			dateFormat: 'd MM,yy'
+		});
+	});
+</script>
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div>
+				<h1>Doctors Quotations</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<!--breadcrumbs end-->
+
+<!--container start-->
+<div class="registration-bg">
+	<div class="row">
+		<form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:60%">
+			{% csrf_token %}
+			<h2 class="form-signin-heading">
+				{% if fn == "add" %}
+					Fill Your Quotation for Treatment
+				{% elif fn == "update" %}
+					Update Quotation
+				{% endif %}
+			</h2>
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="login-wrap">
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Treatment Name</label>
+					<input type="text" value="{{replyDetails.reply_treatment}}" name="reply_treatment" id="reply_treatment" class="form-control" placeholder="Treatment Name" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Doctor Name</label>
+					<input type="text" value="{{replyDetails.reply_doctor}}" name="reply_doctor" id="reply_doctor" class="form-control" placeholder="Doctor Name" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Qualification</label>
+					<input type="text" value="{{replyDetails.reply_qualification}}" name="reply_qualification" id="reply_qualification" class="form-control" placeholder="Qualification" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Year of Experience</label>
+					<input type="text" value="{{replyDetails.reply_experience}}" name="reply_experience" id="reply_experience" class="form-control" placeholder="Year of Experience" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Hospital for Treatment</label>
+					<input type="text" value="{{replyDetails.reply_hospital}}" name="reply_hospital" id="reply_hospital" class="form-control" placeholder="Hospital for Treatment" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Number of session</label>
+					<input type="text" value="{{replyDetails.reply_session}}" name="reply_session" id="reply_session" class="form-control" placeholder="Number of session" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Treatment Start Date</label>
+					<input type="date" value="{{replyDetails.reply_start_date}}" name="reply_start_date" id="reply_start_date" class="form-control" placeholder="Treatment Start Date" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Treatment End Date</label>
+					<input type="date" value="{{replyDetails.reply_end_date}}" name="reply_end_date" id="reply_end_date" class="form-control" placeholder="Treatment End Date" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Cost of Package</label>
+					<input type="text" value="{{replyDetails.reply_cost}}" name="reply_cost" id="reply_cost" class="form-control" placeholder="Cost of Package" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Insurance Covered</label>
+					<input type="text" value="{{replyDetails.reply_insurace}}" name="reply_insurace" id="reply_insurace" class="form-control" placeholder="Insurance Covered" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Treatment Location</label>
+					<input type="text" value="{{replyDetails.reply_location}}" name="reply_location" id="reply_location" class="form-control" placeholder="Treatment Location" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Attach Quotation</label>
+					<input type="file" accept="image/*" class="form-control" placeholder="Select File" autofocus="" name="reply_file" id="reply_file"
+					 value="{{replyDetails.reply_file}}">
+				</div>
+				<div class="col-xs-6 form-group" style="clear: both;">
+					<label for="pwd">Addition Inclusion</label>
+					<textarea class="form-control" style="height:150px;" placeholder="Addition Inclusion" autofocus="" name="reply_description" id="reply_description" required>{{replyDetails.reply_description}}</textarea>
+				</div>
+				
+				<button class="btn btn-lg btn-login btn-block" type="submit">Submit Quotation</button>
+			</div>
+			<input type="hidden" name="avail_image" value="{{replyDetails.reply_file}}">
+			<input type="hidden" name="act" value="save_reply">
+			<input type="hidden" name="reply_id" value="{{replylist.reply_id}}">
+		</form>
+	</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block content %}
+<script>
+	jQuery(function () {
+		jQuery("#appointment_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "0:+1",
+			dateFormat: 'd MM,yy'
+		});
+	});
+</script>
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-sm-4">
+				<h1>{{heading}}</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<!--breadcrumbs end-->
+
+<!--container start-->
+<div class="registration-bg">
+	<div class="row">
+		<form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:60%">
+			{% csrf_token %}
+			<h2 class="form-signin-heading">
+				{% if fn == "add" %}
+					Add New Category
+				{% elif fn == "update" %}
+					Update Category
+				{% endif %}
+			</h2>
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="login-wrap">
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Category Name</label>
+					<input type="text" value="{{categoryDetails.category_title}}" name="category_title" id="category_title" class="form-control" placeholder="Category Name" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Category URL</label>
+					<input type="text" value="{{categoryDetails.category_url}}" name="category_url" id="category_url" class="form-control" placeholder="Category URL" required>
+				</div>
+				<div class="col-xs-6 form-group" style="clear:both">
+					<label for="pwd">Description of the Category</label>
+					<textarea class="form-control" style="height:150px;" placeholder="Description" autofocus="" name="category_description" id="category_description" required>{{categoryDetails.category_description}}</textarea>
+				</div>
+				<div class="col-xs-6 form-group" style="clear:both">
+					<label for="pwd">Select Image</label>
+					<input type="file" accept="image/*" class="form-control" placeholder="Select Image" autofocus="" name="category_logo" id="category_logo"
+					 value="{{categoryDetails.category_logo}}">
+					{% if categoryDetails.category_logo %}
+					<div class="clearfix" style="margin-top:20px;"><img src="{{categoryDetails.category_logo}}" style="width: 100px"></div><br>
+					{% endif %}
+				</div>
+				<button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+			</div>
+			<input type="hidden" name="avail_image" value="{{categoryDetails.category_logo}}">
+			<input type="hidden" name="act" value="save_category">
+			<input type="hidden" name="user_id" value="{{categorylist.category_id}}">
+		</form>
+	</div>
+</div>
+{% if appointmentdetails %}
+<script>
+	$(".update-appointment").hide();
+</script>
+{% endif %}
+{% if request.session.appointment_level_id != 1 %}
+<script>
+	$(".role-options").hide();
+</script>
+{% endif %}
+<!--container end-->
+{% endblock content %}

@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Sequence Modern Slider -->
+    <div id="da-slider" class="da-slider" style="top:1px;">
+
+            <div class="da-slide">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+              <h2>
+                <i>E-Health</i>
+                <br>
+                <i>Management</i>
+                <br>
+                <i>System</i>
+              </h2>
+              <p>
+                <i>A complete solution</i>
+                <br />
+                <i>for e-health management</i>
+              </p>
+              <a href="#" class="btn btn-info btn-lg da-link">
+				  Read more
+				</a>
+              <div class="da-img">
+                <img src="/assets/img/parallax-slider/images/1.png" alt="image01" style="height:300px"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+            <div class="da-slide">
+            <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+        <h2>
+          <i>Doctors AND</i>
+            <br />
+          <i>Services</i>
+            <br />
+          <i>Management</i>
+        </h2>
+        <p>
+          <i>Management of</i>
+            <br />
+          <i>Doctors and Services</i>
+        </p>
+        <a href="#" class="btn btn-info btn-lg da-link">
+          Read more
+        </a>
+        <div class="da-img">
+          <img src="/assets/img/parallax-slider/images/2.png" alt="image01" style="height:300px"/>
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="da-slide">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+        <h2>
+          <i>Questions AND</i>
+            </br>
+          <i>Feedback</i>
+            </br>
+          <i>Management</i>
+        </h2>
+        <p>
+          <i>Manage Feedback, Quotations</i>
+          <br />
+          <i>and Report</i>
+          <br />
+          <i>on a single portal</i>
+        </p>
+        <a href="#" class="btn btn-info btn-lg da-link">
+          Read more
+        </a>
+        <div class="da-img">
+          <img src="/assets/img/parallax-slider/images/3.png" alt="image01" style="height:300px"/>
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
+      <nav class="da-arrows">
+        <span class="da-arrows-prev">
+        </span>
+        <span class="da-arrows-next">
+        </span>
+      </nav>
+    </div>
+
+
+    <div class="container">
+      <div class="row mar-b-30">
+        <div class="col-md-12">
+          <div class="text-center feature-head wow fadeInDown">
+            <h1 class="" style="margin:30px;">
+              E-Health Website Select Your Category
+            </h1>
+
+          </div>
+
+
+          <div class="feature-box">
+            {% for category in categorylist %}
+            <div class="col-md-3 col-sm-3 text-center wow fadeInUp">
+              <div class="feature-box-heading">
+                <em>
+                <a href="{{category.category_url}}"><img src="{{category.category_logo}}" alt="" style="width:250px; height:180px;"></a>
+
+                </em>
+                <h4>
+                  <b>{{category.category_title}}</b>
+                </h4>
+              </div>
+              <p class="text-center">
+                {{category.category_description|slice:"0:140"}}...
+              </p><br>
+              <!-- <a href="#" class="btn btn-lg btn-login btn-block">View</a> -->
+            </div>
+            {% endfor %}
+          </div>
+
+          <!--feature end-->
+        </div>
+      </div>
+    </div>
+
+
+    <!--property start-->
+    <div class="property gray-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-sm-6 text-center wow fadeInLeft">
+            <img src="/assets/img/parallax-slider/images/1.jpeg" alt="" style="height:335px; width:550px;">
+          </div>
+          <div class="col-lg-6 col-sm-6 wow fadeInRight">
+            <h1>
+              About Student Feedback Review System
+            </h1>
+            <hr>
+            <p>Health care (also health-care or healthcare) is the maintenance or improvement of health via the prevention, diagnosis, treatment, recovery, or cure of disease, illness, injury, and other physical and mental impairments in people. Health care is delivered by health professionals and allied health fields. Medicine, dentistry, pharmacy, midwifery, nursing, optometry, audiology, psychology, occupational therapy, physical therapy, athletic training and other health professions are all part of health care. It includes work done in providing primary care, secondary care, and tertiary care, as well as in public health. Access to health care may vary across countries, communities, and individuals, influenced by social and economic conditions as well as health policies. Providing health care services means "the timely use of personal health services to achieve the best possible health outcomes".</p>
+            
+			      <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--property end-->
+    <script type="text/javascript" src="/assets/js/parallax-slider/jquery.cslider.js"></script>
+	<script type="text/javascript">
+		  $(function() {
+
+			$('#da-slider').cslider({
+			  autoplay    : true,
+			  bgincrement : 100
+			});
+
+		  });
+	</script>
+  {% endblock content %}
+

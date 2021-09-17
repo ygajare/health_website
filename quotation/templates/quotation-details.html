@@ -1,0 +1,157 @@
+{% extends 'base.html' %} {% block content %}
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div>
+        <h1>
+            Request for {{quotationdetails.specialization_title}}
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //breadcrumbs -->
+
+<div class="registration-bg">
+	<div class="row">
+    <form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:80%">
+          {% csrf_token %}
+          <h2 class="form-signin-heading">
+            Full Request Details
+          </h2>
+          <div>
+            {% if messages %}
+              <div class="alert alert-success fade in" style="margin:10px;">
+                {% for message in messages %}
+                  <strong>{{ message }}</strong>
+                {% endfor %}
+              </div>
+            {% endif %}
+                {% csrf_token %}
+              <table style="width:100%; margin:20px;">
+                <tr>
+                  <!-- <td style="vertical-align: top;"><img src="{{quotationdetails.quotation_image}}" style="width: 100%"></td> -->
+                  <td style="vertical-align:top; padding-left:20px;">
+                    <table style="width: 95%; margin-bottom: 20px ;">
+                      <tr>
+                        <th class="th_color" style="width: 25%;">Patient Name</th>
+                        <td class="td_color" style="width: 25%;">{{quotationdetails.user_first_name}}</td>
+                        <th class="th_color" style="width: 25%;">Patient Contact</th>
+                        <td class="td_color" style="width: 25%;">{{quotationdetails.user_mobile}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Your Insurance</th>
+                        <td class="td_color">{{quotationdetails.quotation_insurance}}</td>
+                        <th class="th_color" >CoPay Budget</th>
+                        <td class="td_color">{{quotationdetails.quotation_budget}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Start Date</th>
+                        <td class="td_color">{{quotationdetails.quotation_start_date}}</td>
+                        <th class="th_color" >End Date</th>
+                        <td class="td_color">{{quotationdetails.quotation_end_date}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Treatment Schedule</th>
+                        <td class="td_color">{{quotationdetails.quotation_schedule}}</td>
+                        <th class="th_color" >Preferred Start Time</th>
+                        <td class="td_color">{{quotationdetails.quotation_start_time}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Preferred End Time</th>
+                        <td class="td_color">{{quotationdetails.quotation_end_time}}</td>
+                        <th class="th_color" >Preferred Rating</th>
+                        <td class="td_color">{{quotationdetails.quotation_rating}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Preferred Location</th>
+                        <td class="td_color">{{quotationdetails.quotation_location}}</td>
+                        <th class="th_color" >Qualification</th>
+                        <td class="td_color">{{quotationdetails.quotation_location}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Minimum Experience</th>
+                        <td class="td_color">{{quotationdetails.quotation_experience}}</td>
+                        <th class="th_color" >Other Requirements</th>
+                        <td class="td_color">{{quotationdetails.quotation_description}}</td>
+                      </tr>
+                      {% if request.session.user_level_id == 3 %}		
+                      <tr>
+                        <td colspan="4" style="text-align:right">
+                            <a href="/quotation/reply/{{quotationdetails.quotation_id}}" class="btn btn-primary" style="width:150px; margin-top:10px; font-weight:bold; color: #FFFFFF;">Submit Quotations</a>
+                        </td>
+                      </tr>
+                      {% endif %}
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <input type="hidden" name="quotation_id" value="{{quotationdetails.quotation_id}}">
+              <input type="hidden" name="quotation_price" value="{{quotationdetails.quotation_price}}">
+          </div>
+          <h2 class="form-signin-heading">
+            All Quotation From Doctors
+          </h2>
+          <div class="col-lg-12" style="margin-top: 20px;">
+            <div style="    font-size: 17px; padding: 14px 0px; font-weight: bold; color: #000;">Your Finalized quotation will be shown in <span style="color: green; text-decoration: underline; font-size: 18px;">Green</span> color</div>
+
+              <section class="panel">
+                <table class="table table-striped table-advance table-hover" style="color:#000000">
+                 <tbody>
+                  <tr class="bg-primary">
+                  <th style="background-color:#152c3f; color:#FFFFFF;">Sr. No.</th>
+                  <th style="background-color:#152c3f; color:#FFFFFF;">Treatment Name</th>
+                  <th style="background-color:#152c3f; color:#FFFFFF;">Doctor Name</th>
+                  <th style="background-color:#152c3f; color:#FFFFFF;">Tretment Cost</th>
+                  <th style="background-color:#152c3f; color:#FFFFFF;">Qualification</th>
+                  <th style="background-color:#152c3f; color:#FFFFFF;">Start Date</th>
+                  <th style="background-color:#152c3f; color:#FFFFFF;">End Date</th>
+                  <th style="background-color:#152c3f; color:#FFFFFF;"><i class="icon_cogs"></i> Action</th>
+                  </tr>
+                  {% for quotation in quotationlist %}
+                  {% if quotationdetails.quotation_reply_id == quotation.reply_id %}		
+                    <tr style="background-color: green; color: #FFFFFF; font-weight: bold;">
+                      <td style="text-align:center; font-weight:bold;">{{ forloop.counter }}</td>
+                      <td>{{quotation.reply_treatment}}</td>
+                      <td>{{quotation.reply_doctor}}</td>
+                      <td>{{quotation.reply_cost}}</td>
+                      <td>{{quotation.reply_qualification}}</td>
+                      <td>{{quotation.reply_start_date}}</td>
+                      <td>{{quotation.reply_end_date}}</td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="/quotation/reply-details/{{quotation.reply_id}}" class="btn btn-primary" style="color: #FFFFFF; font-weight: bold;">View</a>
+                        </div>
+                        </td>
+                    </tr>
+                  {% else %}
+                    <tr>
+                      <td style="text-align:center; font-weight:bold;">{{ forloop.counter }}</td>
+                      <td>{{quotation.reply_treatment}}</td>
+                      <td>{{quotation.reply_doctor}}</td>
+                      <td>{{quotation.reply_cost}}</td>
+                      <td>{{quotation.reply_qualification}}</td>
+                      <td>{{quotation.reply_start_date}}</td>
+                      <td>{{quotation.reply_end_date}}</td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="/quotation/reply-details/{{quotation.reply_id}}" class="btn btn-success" style="color: #FFFFFF; font-weight: bold;">View</a>
+                        </div>
+                        </td>
+                    </tr>
+                  {% endif %}
+                  
+                  {% endfor %}
+                 </tbody>
+              </table>
+              </section>
+              <input type="hidden" name="act" />
+              <input type="hidden" name="medicine_id" id="recordID" />
+            </div>
+        </form>
+        
+  </div>
+</div>
+<!--container end-->
+{% endblock content %}

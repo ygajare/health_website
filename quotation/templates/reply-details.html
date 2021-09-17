@@ -1,0 +1,104 @@
+{% extends 'base.html' %} {% block content %}
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div>
+        <h1>
+            Request for {{replydetails.specialization_title}}
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //breadcrumbs -->
+
+<div class="registration-bg">
+	<div class="row">
+    <form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:80%">
+          {% csrf_token %}
+          <h2 class="form-signin-heading">
+            Quotation From Doctor
+          </h2>
+          <div>
+          {% if messages %}
+            <div class="alert alert-success fade in" style="margin:10px;">
+              {% for message in messages %}
+                <strong>{{ message }}</strong>
+              {% endfor %}
+            </div>
+          {% endif %}
+                {% csrf_token %}
+              <table style="width:100%; margin:20px;">
+                <tr>
+                  <!-- <td style="vertical-align: top;"><img src="{{replydetails.reply_image}}" style="width: 100%"></td> -->
+                  <td style="vertical-align:top; padding-left:20px;">
+                    <table style="width: 95%; margin-bottom: 20px ;">
+                      <tr>
+                        <th class="th_color" style="width: 25%;">Patient Name</th>
+                        <td class="td_color" style="width: 25%;">{{replydetails.user_first_name}}</td>
+                        <th class="th_color" style="width: 25%;">Patient Contact</th>
+                        <td class="td_color" style="width: 25%;">{{replydetails.user_mobile}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Patient Insurance</th>
+                        <td class="td_color">{{replydetails.quotation_insurance}}</td>
+                        <th class="th_color" >CoPay Budget</th>
+                        <td class="td_color">{{replydetails.quotation_budget}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Treatment Name</th>
+                        <td class="td_color">{{replydetails.reply_treatment}}</td>
+                        <th class="th_color" >Doctor Name</th>
+                        <td class="td_color">{{replydetails.reply_doctor}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Doctor Qualification</th>
+                        <td class="td_color">{{replydetails.reply_qualification}}</td>
+                        <th class="th_color" >Year of Experience</th>
+                        <td class="td_color">{{replydetails.reply_experience}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Hospital for Treatment</th>
+                        <td class="td_color">{{replydetails.reply_hospital}}</td>
+                        <th class="th_color" >Number of session</th>
+                        <td class="td_color">{{replydetails.reply_session}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Treatment Start Date</th>
+                        <td class="td_color">{{replydetails.reply_start_date}}</td>
+                        <th class="th_color" >Treatment End Date</th>
+                        <td class="td_color">{{replydetails.reply_end_date}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Cost of Package</th>
+                        <td class="td_color">{{replydetails.reply_cost}}</td>
+                        <th class="th_color" >Insurance Covered</th>
+                        <td class="td_color">{{replydetails.reply_insurace}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" >Treatment Location</th>
+                        <td class="td_color">{{replydetails.reply_location}}</td>
+                        <th class="th_color" >Addition Inclusion</th>
+                        <td class="td_color">{{replydetails.reply_description}}</td>
+                      </tr>
+                      {% if request.session.user_level_id == 2 %}		
+                      <tr>
+                        <td colspan="4" style="text-align:right">
+                            <a href="/quotation/finalize/{{replydetails.reply_id}}/{{replydetails.quotation_id}}" class="btn btn-danger" style="width:150px; margin-top:10px; font-weight:bold; color: #FFFFFF;">Finalize This</a>
+                        </td>
+                      </tr>
+                      {% endif %}
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <input type="hidden" name="reply_id" value="{{replydetails.reply_id}}">
+              <input type="hidden" name="reply_price" value="{{replydetails.reply_price}}">
+          </div>
+        </form>
+        
+  </div>
+</div>
+<!--container end-->
+{% endblock content %}

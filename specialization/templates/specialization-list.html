@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block content %}
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div>
+        <h1>
+          Specialities - Select Your Doctor
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--container start-->
+<div class="container">
+  <div class="row mar-b-50">
+    <div class="col-lg-12 about wow fadeInRight">
+	  <div class="feature-box">
+		{% if messages %}
+		<div class="alert alert-success fade in" style="margin:10px;">
+			{% for message in messages %}
+				<strong>{{ message }}</strong>
+			{% endfor %}
+		</div>
+		{% endif %}
+		{% for specialization in specializationlist %}
+		<div class="col-md-3 col-sm-3 text-center wow fadeInUp">
+		  <div class="feature-box-heading">
+			<em>
+			<a href="/quotation/add/{{specialization.specialization_id}}">
+				<img src="{{specialization.specialization_logo}}" alt="" style="width:160px; height:160px; border-radius: 50%;">
+			</a>
+			</em>
+			<h4>
+			  <b>{{specialization.specialization_title}}</b>
+			</h4>
+		  </div>
+		</div>
+		{% endfor %}
+	  </div>
+    </div>
+  </div>
+
+</div>
+{% endblock content %}

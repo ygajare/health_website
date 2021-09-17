@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% block content %}
+<script>
+	jQuery(function () {
+		jQuery("#appointment_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "0:+1",
+			dateFormat: 'd MM,yy'
+		});
+	});
+</script>
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div>
+				<h1>{{heading}}</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<!--breadcrumbs end-->
+
+<!--container start-->
+<div class="registration-bg">
+	<div class="row">
+		<form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:60%">
+			{% csrf_token %}
+			<h2 class="form-signin-heading">
+				{% if fn == "add" %}
+					Fill Your Request for : <span style="font-size: 18px; font-weight: bold; text-decoration: underline;"> ({{specialization.specialization_title}})</span>
+				{% elif fn == "update" %}
+					Update Quotation
+				{% endif %}
+			</h2>
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="login-wrap">
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Your Insurance</label>
+					<input type="text" value="{{quotationDetails.quotation_insurance}}" name="quotation_insurance" id="quotation_insurance" class="form-control" placeholder="Your Insurance" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">CoPay Budget</label>
+					<input type="text" value="{{quotationDetails.quotation_budget}}" name="quotation_budget" id="quotation_budget" class="form-control" placeholder="CoPay Budget" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Start Date</label>
+					<input type="date" value="{{quotationDetails.quotation_start_date}}" name="quotation_start_date" id="quotation_start_date" class="form-control" placeholder="Start Date" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">End Date</label>
+					<input type="date" value="{{quotationDetails.quotation_end_date}}" name="quotation_end_date" id="quotation_end_date" class="form-control" placeholder="End Date" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Treatment Schedule</label>
+					<input type="text" value="{{quotationDetails.quotation_schedule}}" name="quotation_schedule" id="quotation_schedule" class="form-control" placeholder="Treatment Schedule" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Preferred Start Time</label>
+					<input type="text" value="{{quotationDetails.quotation_start_time}}" name="quotation_start_time" id="quotation_start_time" class="form-control" placeholder="Preferred Start Time" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Preferred End Time</label>
+					<input type="text" value="{{quotationDetails.quotation_end_time}}" name="quotation_end_time" id="quotation_end_time" class="form-control" placeholder="Preferred End Time" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Preferred Rating</label>
+					<input type="text" value="{{quotationDetails.quotation_rating}}" name="quotation_rating" id="quotation_rating" class="form-control" placeholder="Preferred Rating" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Preferred Location</label>
+					<input type="text" value="{{quotationDetails.quotation_location}}" name="quotation_location" id="quotation_location" class="form-control" placeholder="Preferred Location" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Qualification</label>
+					<input type="text" value="{{quotationDetails.quotation_qualification}}" name="quotation_qualification" id="quotation_qualification" class="form-control" placeholder="Qualification" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Minimum Experience</label>
+					<input type="text" value="{{quotationDetails.quotation_experience}}" name="quotation_experience" id="quotation_experience" class="form-control" placeholder="Minimum Experience" required>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Select File</label>
+					<input type="file" accept="image/*" class="form-control" placeholder="Select Image" autofocus="" name="quotation_logo" id="quotation_logo"
+					 value="{{quotationDetails.quotation_logo}}">
+				</div>
+				<div class="col-xs-6 form-group" style="clear: both;">
+					<label for="pwd">Other Requirements</label>
+					<textarea class="form-control" style="height:150px;" placeholder="Description" autofocus="" name="quotation_description" id="quotation_description" required>{{quotationDetails.quotation_description}}</textarea>
+				</div>
+				
+				<button class="btn btn-lg btn-login btn-block" type="submit">Submit Request</button>
+			</div>
+			<input type="hidden" name="avail_image" value="{{quotationDetails.quotation_logo}}">
+			<input type="hidden" name="act" value="save_quotation">
+			<input type="hidden" name="quotation_id" value="{{quotationlist.quotation_id}}">
+			<input type="hidden" name="quotation_specialization_id" value="{{specialization.specialization_id}}">
+		</form>
+	</div>
+</div>
+{% if appointmentdetails %}
+<script>
+	$(".update-appointment").hide();
+</script>
+{% endif %}
+{% if request.session.appointment_level_id != 1 %}
+<script>
+	$(".role-options").hide();
+</script>
+{% endif %}
+<!--container end-->
+{% endblock content %}

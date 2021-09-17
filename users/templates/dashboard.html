@@ -1,0 +1,138 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+    .btn.btn-circle {
+        line-height: 30px;
+        padding: 0;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        background-color: #3a5164;
+        color: #ffffff;
+        width: 150px;
+        height: 150px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .btn-circle div{
+      margin-top: 40px;
+    }
+    .mydash {
+        border:1px solid #57889c;
+        padding:10px;
+        margin:10px;
+    }
+    .col-lg-2 {
+        width:14.667%;
+    }
+    </style>      
+        <!--breadcrumbs start-->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-sm-4">
+                {% if request.session.user_level_id == 1 %}	
+                    <h1>Admin Dashboard</h1>
+                {% endif %}
+                {% if request.session.user_level_id == 2 %}	
+                    <h1>Patient Dashboard</h1>
+                {% endif %}
+                {% if request.session.user_level_id == 3 %}	
+                    <h1>Doctor Dashboard</h1>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="registration-bg">
+	<div class="container">
+        {% if request.session.user_level_id == 1 %}		
+        <div class="container w">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/specialization/add" class="btn btn-default btn-circle"><div>Add<br>Specialization</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/add" class="btn btn-default btn-circle"><div>Add<br>Users</div></a>	
+                </div><!--/.col-->				
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/report/1" class="btn btn-default btn-circle"><div>Admin<br>Report</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/report/2" class="btn btn-default btn-circle"><div>Patients<br>Report</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/report/3" class="btn btn-default btn-circle"><div>Doctor<br>Report</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/quotation/list" class="btn btn-default btn-circle"><div>Patient<br>Requests</div></a>	
+                </div><!--/.col-->
+                
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/update/{{ request.session.user_id }}/" class="btn btn-default btn-circle"><div>My<br>Account</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/changepassword" class="btn btn-default btn-circle"><div>Change<br>Password</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/logout" class="btn btn-default btn-circle" style="padding-top:13px;"><div>Logout</div></a>	
+                </div><!--/.col-->
+                
+            </div><!-- row -->				  
+    
+            <br>
+            <br>
+        </div>
+        {% endif %}
+        {% if request.session.user_level_id == 2 %}		
+        <div class="container w">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/specialization/list" class="btn btn-default btn-circle"><div>New<br>Request</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/quotation/list" class="btn btn-default btn-circle"><div>My<br>Requests</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/update/{{ request.session.user_id }}/" class="btn btn-default btn-circle"><div>My<br>Account</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/changepassword" class="btn btn-default btn-circle"><div>Change<br>Password</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/logout" class="btn btn-default btn-circle" style="padding-top:13px;"><div>Logout</div></a>	
+                </div><!--/.col-->				
+            </div><!-- row -->
+            <br>
+            <br>
+        </div>
+        {% endif %}
+        {% if request.session.user_level_id == 3 %}		
+        <div class="container w">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/quotation/list" class="btn btn-default btn-circle"><div>Patient<br>Requests</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/dspecialization/add" class="btn btn-default btn-circle"><div>Associate<br>Specialization</div></a>	
+                </div><!--/.col-->	
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/dspecialization/" class="btn btn-default btn-circle"><div>My<br>Specialization</div></a>	
+                </div><!--/.col-->	
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/update/{{ request.session.user_id }}/" class="btn btn-default btn-circle"><div>My<br>Account</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/changepassword" class="btn btn-default btn-circle"><div>Change<br>Password</div></a>	
+                </div><!--/.col-->
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+                    <a href="/users/logout" class="btn btn-default btn-circle" style="padding-top:13px;"><div>Logout</div></a>	
+                </div><!--/.col-->				
+            </div><!-- row -->
+            <br>
+            <br>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+        
